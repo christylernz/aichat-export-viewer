@@ -1,0 +1,11 @@
+<template>
+    <p class="greeting">Hello test {name}!</p>
+    <div lwc:if={name}>Test</div>
+    <button lwc:else onclick={handleClick}>Press me!</button>
+    <ul>
+        <template for:each={myArray} for:index="index" for:item="item">
+            <li key={item}>{index}-{item}</li>
+        </template>
+
+    </ul>
+</template>
