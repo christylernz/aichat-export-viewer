@@ -1,5 +1,11 @@
 {
-    "lwc": { "modules": [{ "dir": "$rootDir/src/modules" }] },
+    "lwc": {
+        "modules": [
+            {
+                "dir": "$rootDir/src/modules"
+            }
+        ]
+    },
     "routes": [
         {
             "id": "example",
@@ -12,6 +18,11 @@
             "alias": "assetsDir",
             "dir": "$rootDir/src/assets",
             "urlPath": "/public/assets"
+        },
+        {
+            "alias": "sldsAssetsDir",
+            "dir": "$rootDir/src/assets/slds",
+            "urlPath": "/slds"
         },
         {
             "alias": "favicon",
