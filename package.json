@@ -16,12 +16,20 @@
   },
   "dependencies": {
     "lwc": "latest",
-    "lwr": "0.18.3"
+    "lwr": "^0.20.3"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "volta": {
     "node": "20.16.0"
+  },
+  "overrides": {
+    "@lwrjs/o11y": {
+      "protobufjs": "^7.5.0"
+    },
+    "braces": "^3.0.3",
+    "micromatch": "^4.0.8",
+    "anymatch": "^3.1.3"
   }
 }
