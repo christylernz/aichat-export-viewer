@@ -6,6 +6,9 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf node_modules __lwr_cache__ site",
+    "copy:slds": "node scripts/copy-assets.mjs",
+    "predev": "npm run copy:slds",
+    "prebuild": "npm run copy:slds",
     "dev": "lwr dev",
     "dev:compat": "lwr dev --mode compat",
     "build": "lwr build --clean",
@@ -34,6 +37,7 @@
   },
   "devDependencies": {
     "@lwc/synthetic-shadow": "^8.22.6",
-    "@salesforce-ux/design-system": "^2.28.0"
+    "@salesforce-ux/design-system": "^2.28.0",
+    "cpx": "^1.5.0"
   }
 }

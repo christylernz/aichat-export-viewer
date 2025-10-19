@@ -53,6 +53,12 @@ This is handled in the asset configuration in `lwr.config.json` and the copy res
 
 Create a script to copy SLDS resources into your project's assets directory. This replaces the build-time copying that `lwc-services.config.js` would handle in LWC OSS.
 
+To run this script you will need to install the cpx package:
+
+```bash
+npm install cpx --save-dev
+```
+
 ### Copy assets using Node.js Script
 
 Create a file called `scripts/copy-resources.mjs`:
@@ -69,7 +75,41 @@ cpx.copy('node_modules/@salesforce-ux/design-system/assets/**/*', 'src/assets', 
 });
 ```
 
-This script uses the `cpx` package to copy all SLDS assets (CSS, fonts, icons) from the `node_modules` directory to your project's `src/assets` directory. 
+This script uses the `cpx` package to copy all SLDS assets (CSS, fonts, icons) from the `node_modules` directory to your project's `src/assets` directory.
+
+### How to run the script from npm
+
+You can add a script entry in your `package.json` to run this copy script easily:
+
+```json
+{
+  "scripts": {
+    "copy:slds": "node scripts/copy-assets.mjs"
+  }
+}
+```
+
+Then, you can run the script using npm:
+
+```bash
+npm run copy:slds
+```
+
+### Adding it to your development and production build process
+
+You can add the copy command as a pre-script to your `dev` and `build` commands in `package.json`:
+
+```json
+{
+  "scripts": {
+    "copy:slds": "node scripts/copy-resources.mjs",
+    "predev": "npm run copy:slds",
+    "prebuild": "npm run copy:slds",
+    "dev": "lwr dev",
+    "build": "lwr build"
+  }
+}
+```
 
 ### Why do we copy to `src/assets`?
 
@@ -77,11 +117,9 @@ This script uses the `cpx` package to copy all SLDS assets (CSS, fonts, icons) f
 - This allows you to reference SLDS styles and resources in your layout templates and components.
 - Keeping assets in `src/assets` ensures they are included in both development and production builds.
 
-To run this script you will need to install the cpx package:
 
-```bash
-npm install cpx --save-dev
-```
+
+
 
 ## Step 3: Configure LWR Assets
 
