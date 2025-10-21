@@ -190,7 +190,10 @@ An explanation of each part is included in comments in the code block below.
 
 ## Step 4: Link SLDS Stylesheets in Layout
 
-Update your layout template at `src/layouts/main.html`:
+### Create layout template
+
+Create a new layout template at `src/layouts/main.html`:
+
 
 ```html
 <!DOCTYPE html>
@@ -209,11 +212,11 @@ Update your layout template at `src/layouts/main.html`:
 <body>
     <!-- CRITICAL: LWR body content injection point -->
     <!-- This is where your LWC components will be rendered -->
-    {{{ body }}}
+    {{{body}}}
     
     <!-- CRITICAL: LWR resources - MUST be included for LWC components to work -->
     <!-- This includes the LWC framework, synthetic shadow, and component code -->
-    {{{ lwr_resources }}}
+    {{{lwr_resources}}}
 </body>
 </html>
 ```
