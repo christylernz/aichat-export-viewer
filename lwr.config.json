@@ -12,11 +12,16 @@
             "@lwc/synthetic-shadow"
         ]
     },
+    "layoutsDir": "$rootDir/src/layouts",
     "routes": [
         {
             "id": "example",
             "path": "/",
-            "rootComponent": "example/app"
+            "rootComponent": "example/app",
+            "layoutTemplate": "$layoutsDir/index.html",
+            "bootstrap": {
+                "syntheticShadow": true
+            }
         }
     ],
     "assets": [
