@@ -86,6 +86,7 @@ test('adds 1 + 2 to equal 3', () => {
 ```
 
 **Understanding the test:**
+
 - `test('description', () => {...})` - Defines a test case with a description
 - `expect(value)` - Says "I expect this value..."
 - `.toBe(3)` - "...to be equal to 3"
@@ -98,7 +99,7 @@ npm test
 
 You should see output like:
 
-```
+```bash
 PASS  __tests__/basic.test.js
   ✓ adds 1 + 2 to equal 3 (2 ms)
 
@@ -109,6 +110,7 @@ Tests:       1 passed, 1 total
 🎉 **Success!** Jest is now working in your project.
 
 **Further Reading:**
+
 - [Jest Getting Started](https://jestjs.io/docs/getting-started)
 - [Jest Expect API](https://jestjs.io/docs/expect) - All the assertion methods
 
@@ -125,6 +127,7 @@ npm install --save-dev @lwc/jest-preset
 ```
 
 **What is this?** The `@lwc/jest-preset` package provides:
+
 - Jest configuration specifically for LWC
 - The ability to import and test LWC components
 - DOM utilities for testing component behavior
@@ -154,6 +157,7 @@ module.exports = {
 ```
 
 **Understanding this code:**
+
 - We import the default Jest configuration for LWC
 - `...jestConfig` spreads (copies) all the configuration settings
 - This gives us all the LWC-specific Jest settings without writing them ourselves
@@ -176,12 +180,14 @@ module.exports = {
 ```
 
 **Understanding moduleNameMapper:**
+
 - The left side (`'^c/(.+)$'`) is a pattern matching component imports like `import MyComponent from 'c/myComponent'`
 - The right side tells Jest where to actually find those files
 - `<rootDir>` is Jest's placeholder for your project root
 - The `$1/$1` means if you import `c/myComponent`, it looks in `src/modules/c/myComponent/myComponent.js`
 
 **Important:** Adjust the path (`src/modules/c/`) to match where YOUR components actually live in your project. Common alternatives:
+
 - `<rootDir>/force-app/main/default/lwc/$1/$1` (Salesforce DX projects)
 - `<rootDir>/src/client/modules/c/$1/$1` (LWR projects)
 
@@ -262,7 +268,7 @@ npm test
 
 You should see:
 
-```
+```bash
 PASS  src/modules/c/greeting/__tests__/greeting.test.js
   c-greeting
     ✓ displays the greeting message (15 ms)
@@ -271,10 +277,12 @@ PASS  src/modules/c/greeting/__tests__/greeting.test.js
 🎉 **Success!** You can now test LWC components!
 
 **Troubleshooting:**
+
 - If you get "Cannot find module 'c/greeting'", check your `moduleNameMapper` path in `jest.config.js`
 - If tests pass but you see warnings about `@salesforce` modules, don't worry - we'll fix that next
 
 **Further Reading:**
+
 - [LWC Testing Documentation](https://lwc.dev/guide/test)
 - [Jest describe() and it()](https://jestjs.io/docs/api#describename-fn)
 
@@ -364,6 +372,7 @@ describe('c-greeting', () => {
 ```
 
 **Understanding afterEach:**
+
 - Runs automatically after each `it()` test
 - Ensures a clean slate for the next test
 - Prevents test pollution (tests affecting each other)
@@ -379,6 +388,7 @@ Both tests should now pass! ✅
 **Best Practice:** Always include `afterEach` cleanup in your component tests.
 
 **Further Reading:**
+
 - [Jest Setup and Teardown](https://jestjs.io/docs/setup-teardown)
 
 ---
@@ -388,6 +398,7 @@ Both tests should now pass! ✅
 Now let's practice **Test-Driven Development** by building a counter component. In TDD, we write tests BEFORE writing the code.
 
 **The TDD Cycle:**
+
 1. **Red** - Write a failing test
 2. **Green** - Write minimal code to pass the test
 3. **Refactor** - Improve the code while keeping tests green
@@ -603,12 +614,14 @@ export default class Counter extends LightningElement {
 Run tests - all pass! ✅
 
 **You just practiced TDD!** Notice how:
+
 - Tests guide what code to write
 - You write minimal code to pass each test
 - Tests act as documentation of how the component should work
 - You have confidence the code works because tests verify it
 
 **Further Reading:**
+
 - [Test-Driven Development Basics](https://martinfowler.com/bliki/TestDrivenDevelopment.html)
 
 ---
@@ -616,6 +629,7 @@ Run tests - all pass! ✅
 ## Part 5: Behavior-Driven Development (BDD) - Building a Todo List
 
 **BDD** focuses on describing the *behavior* of your application in human-readable terms. It uses:
+
 - `describe()` blocks to group behaviors
 - Clear, descriptive test names
 - Given-When-Then structure
@@ -811,11 +825,13 @@ describe('when adding a new todo', () => {
 ```
 
 **New concept: `async/await`**  
+
 - LWC components re-render asynchronously
 - `await Promise.resolve()` waits for the next "tick" - letting the component update
 - The test function must be `async` to use `await`
 
 **New concept: Simulating user input**  
+
 - Set `input.value` to simulate typing
 - Call `dispatchEvent(new CustomEvent('change'))` to trigger the change event
 - Call `button.click()` to simulate clicking
@@ -923,12 +939,14 @@ it('should clear the input field', async () => {
 Run tests - they all pass! ✅ Our implementation already handles this.
 
 **You just practiced BDD!** Notice how:
+
 - Tests read like user stories
 - We describe behaviors, not implementation details
 - Given-When-Then makes tests clear
 - Tests act as living documentation
 
 **Further Reading:**
+
 - [Behavior-Driven Development](https://cucumber.io/docs/bdd/)
 - [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html)
 
@@ -958,12 +976,14 @@ npm run test:watch
 ```
 
 **What happens:**
+
 - Jest starts in interactive mode
 - Tests automatically re-run when you save files
 - You can press keys to filter which tests run
 - Press `q` to quit
 
 **Why this is useful for TDD:**
+
 - Immediate feedback when you save code
 - See tests turn from red ❌ to green ✅ instantly
 - Speeds up the TDD cycle dramatically
@@ -1009,6 +1029,7 @@ npm run test:coverage
 ```
 
 You'll see a report showing:
+
 - **% Statements** - How many lines of code were executed
 - **% Branches** - How many if/else paths were tested
 - **% Functions** - How many functions were called
@@ -1017,6 +1038,7 @@ You'll see a report showing:
 A coverage report is also generated in `coverage/lcov-report/index.html` - open this in a browser to see a visual breakdown.
 
 **When to check coverage:**
+
 - After implementing a feature
 - Before submitting code for review
 - To identify untested code paths
@@ -1030,6 +1052,7 @@ A coverage report is also generated in `coverage/lcov-report/index.html` - open 
 ### Test Organization
 
 ✅ **DO:**
+
 - Put tests in `__tests__` folders next to components
 - Name test files `componentName.test.js`
 - Use `describe()` to group related tests
@@ -1037,6 +1060,7 @@ A coverage report is also generated in `coverage/lcov-report/index.html` - open 
 - Include `afterEach` cleanup in every test suite
 
 ❌ **DON'T:**
+
 - Put all tests in one giant file
 - Name tests vaguely like "test 1", "test 2"
 - Let tests depend on each other's state
@@ -1049,6 +1073,7 @@ A coverage report is also generated in `coverage/lcov-report/index.html` - open 
 4. Repeat
 
 **Use TDD when:**
+
 - Building new features from scratch
 - You want tests to guide your design
 - You want confidence in your refactoring
@@ -1061,6 +1086,7 @@ A coverage report is also generated in `coverage/lcov-report/index.html` - open 
 - Think from the user's perspective
 
 **Use BDD when:**
+
 - You want tests to serve as documentation
 - Communicating with non-technical stakeholders
 - Testing user-facing behaviors
@@ -1068,6 +1094,7 @@ A coverage report is also generated in `coverage/lcov-report/index.html` - open 
 ### Async Testing
 
 Always use `async/await` when:
+
 - Testing user interactions (clicks, input)
 - Components update based on state changes
 - Testing wire adapters (coming in advanced topics)
@@ -1126,4 +1153,5 @@ You now have a solid foundation in Jest testing for LWC! Here are topics to expl
 - **[Behavior-Driven Development](https://cucumber.io/docs/bdd/)** - Learn more about BDD practices
 - **[Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html)** - Understand this testing pattern
 - **[LWC Recipes](https://lwc.dev/guide/recipes)** - Practical examples of LWC components
+
 ---

@@ -35,15 +35,15 @@ After installing the design system and synthetic shadow for SLDS, you want to ch
 }
 ```
 
-This shows that the necessary packages will be installed for development, ensuring SLDS styles can be applied correctly within your LWC components. 
+This shows that the necessary packages will be installed for development, ensuring SLDS styles can be applied correctly within your LWC components.
 
 ### Does this also get used for production builds?
 
-Yes, because the styles need to be available in both environments for consistent UI rendering. 
+Yes, because the styles need to be available in both environments for consistent UI rendering.
 
 ### How does this happen?
 
-The styles are copied to the assets directory and referenced in your layout templates, making them accessible in both development and production builds. 
+The styles are copied to the assets directory and referenced in your layout templates, making them accessible in both development and production builds.
 
 ### Where does this happen?
 
@@ -63,7 +63,7 @@ npm install cpx --save-dev
 
 Create a file called `scripts/copy-resources.mjs`:
 
-Add the following to the content of the file: 
+Add the following to the content of the file:
 
 ```javascript
 import cpx from 'cpx';
@@ -116,10 +116,6 @@ You can add the copy command as a pre-script to your `dev` and `build` commands 
 - LWR serves static assets from the `src/assets` directory, making them accessible via URL paths defined in `lwr.config.json`.
 - This allows you to reference SLDS styles and resources in your layout templates and components.
 - Keeping assets in `src/assets` ensures they are included in both development and production builds.
-
-
-
-
 
 ## Step 3: Configure LWR Assets
 
@@ -193,7 +189,6 @@ An explanation of each part is included in comments in the code block below.
 ### Create layout template
 
 Create a new layout template at `src/layouts/main.html`:
-
 
 ```html
 <!DOCTYPE html>
