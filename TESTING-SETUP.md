@@ -25,14 +25,14 @@ This guide will walk you through setting up Jest testing in your existing LWC OS
 Open your terminal in your project's root directory and run:
 
 ```bash
-npm install --save-dev jest
+npm install --save-dev jest@29
 ```
 
 **What does this do?**
 
 - `npm install` - Downloads and installs a package
 - `--save-dev` - Saves this as a "development dependency" (only needed for development, not production)
-- `jest` - The package name we're installing
+- `jest@29` - The package name we're installing. Jest version 29 is required for LWC testing as of this writing. Check the @lwc/jest-preset docs for the latest compatible versions
 
 **Verify Installation:**
 After installation completes, check your `package.json` file. You should see jest listed under `devDependencies`:
@@ -40,7 +40,7 @@ After installation completes, check your `package.json` file. You should see jes
 ```json
 {
   "devDependencies": {
-    "jest": "^30.x.x"
+    "jest": "^29.x.x"
   }
 }
 ```
