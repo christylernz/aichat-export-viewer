@@ -15,7 +15,8 @@
     "build:prod-compat": "lwr build --clean --mode prod-compat",
     "start": "lwr start",
     "stage": "yarn build && yarn start",
-    "stage:prod-compat": "yarn build:prod-compat && yarn start"
+    "stage:prod-compat": "yarn build:prod-compat && yarn start",
+    "test": "jest"
   },
   "dependencies": {
     "lwc": "latest",

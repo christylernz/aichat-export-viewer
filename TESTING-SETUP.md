@@ -40,14 +40,14 @@ After installation completes, check your `package.json` file. You should see jes
 ```json
 {
   "devDependencies": {
-    "jest": "^29.x.x"
+    "jest": "^30.x.x"
   }
 }
 ```
 
 ### Step 1.2: Create Your First Test Script
 
-Add a test script to your `package.json`. Find the `"scripts"` section and add:
+Add a script to your `package.json` that runs jest for testing. Find the `"scripts"` section and add:
 
 ```json
 {

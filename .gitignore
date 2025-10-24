@@ -1,3 +1,4 @@
 node_modules
 __lwr_cache__
 src/assets/slds/
+coverage/
