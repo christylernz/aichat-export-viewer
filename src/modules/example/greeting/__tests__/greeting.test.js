@@ -2,9 +2,15 @@ import { createElement } from "lwc";
 import Greeting from "example/greeting";
 
 describe('example-greeting', () => {
+    afterEach(() => {
+        // Clean up the DOM after each test handling shadow DOM
+        while (document.body.firstChild) {
+            document.body.removeChild(document.body.firstChild);
+        }
+    });
+
     //Check that the component renders correctly
     it('displays greeting message', () => {
-        // Arrange create the component
         const element = createElement('example-greeting', {
             is: Greeting
         });
@@ -12,10 +18,25 @@ describe('example-greeting', () => {
         //Add it to the test DOM
         document.body.appendChild(element);
         
-        // Act - query the div element
         const div = element.shadowRoot.querySelector('.greeting');
         
-        // Assert - check that the div contains the correct greeting message
         expect(div.textContent).toBe('Hello, Its Me!');
+    });
+     it('has only one greeting component', () => {
+        const element = createElement('example-greeting', {
+            is: Greeting
+        });
+        document.body.appendChild(element);
+
+        // Query all example-greeting elements in the DOM
+        const greetingEls = document.body.querySelectorAll('example-greeting');
+        let greetingCount = 0;
+        greetingEls.forEach(el => {
+            if (el.shadowRoot) {
+                const greetingDiv = el.shadowRoot.querySelector('.greeting');
+                if (greetingDiv) greetingCount++;
+            }
+        });
+        expect(greetingCount).toBe(1);
     });
 });
