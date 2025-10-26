@@ -22,6 +22,15 @@
             "bootstrap": {
                 "syntheticShadow": true
             }
+        },
+        {
+            "id": "greeting",
+            "path": "/greeting",
+            "rootComponent": "example/greeting",
+            "layoutTemplate": "$layoutsDir/index.html",
+            "bootstrap": {
+                "syntheticShadow": true
+            }
         }
     ],
     "assets": [
