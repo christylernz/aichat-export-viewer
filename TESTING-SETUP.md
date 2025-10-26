@@ -36,6 +36,9 @@ npm install --save-dev jest @lwc/jest-preset @lwc/compiler @lwc/engine-dom @lwc/
 - `--save-dev` - Saves these as "development dependencies" (only needed for development, not production)
 - `jest` - The testing framework itself
 - `@lwc/jest-preset` - Jest configuration preset specifically for LWC, includes transformer, resolver, and serializer
+
+The @lwc/jest-preset will install these peer dependencies automatically:
+
 - `@lwc/compiler` - Compiles LWC components during tests
 - `@lwc/engine-dom` - LWC DOM rendering engine
 - `@lwc/engine-server` - LWC server-side rendering engine
@@ -43,9 +46,18 @@ npm install --save-dev jest @lwc/jest-preset @lwc/compiler @lwc/engine-dom @lwc/
 
 **Why all these packages?** The `@lwc/jest-preset` package provides the base configuration for testing LWC components, while the compiler and engine packages allow Jest to understand and render your LWC components during tests.
 
+**What is a transformer, resolver, and serializer?**
+
+- **Transformer**: A transformer is responsible for transforming your source code before it's tested. In the context of LWC, this means compiling your LWC components into a format that Jest can understand.
+
+- **Resolver**: A resolver helps Jest locate the modules your tests depend on. For LWC, this involves resolving component imports so that Jest can find the correct files.
+
+- **Serializer**: A serializer formats the output of your tests. This is important for LWC because it ensures that the rendered output of your components is displayed correctly in test results.
+
 ### Step 1.2: Install jsdom (Jest 28+)
 
-If you're using Jest version 28 or above, you also need to install `jest-environment-jsdom` separately:
+The jsdom (JavaScript Document Object Model) package is required for Jest to simulate a browser-like environment for testing.
+If you're using Jest version 28 or above with the `@lwc/jest-preset`, you also need to install `jest-environment-jsdom` separately:
 
 ```bash
 npm install --save-dev jest-environment-jsdom
@@ -87,7 +99,25 @@ After installation completes, check your `package.json` file. You should see the
 
 Now we need to tell Jest how to work with Lightning Web Components.
 
-### Step 2.1: Create Jest Configuration File
+### Step 2.1: Add Jest Configuration to package.json
+
+Open your `package.json` file and add a `jest` section like this:
+
+```json
+{
+  "jest": {
+    "preset": "@lwc/jest-preset",
+    "moduleNameMapper": {
+      "^c/(.+)$": "<rootDir>/src/modules/c/$1/$1"
+    }
+  }
+}
+```
+
+**Why use package.json for config?** 
+If the configuration is small, it can be convenient to keep it in `package.json` rather than a separate file. This also avoids issues with module resolution in some environments. As jest doesnt fully support ESM config files yet, we will use package.json for simplicity.
+
+### Step 2.1: If you want to create Jest Configuration File
 
 The easiest way to configure your project is to use the preset configurations provided by `@lwc/jest-preset`. Create a file called `jest.config.js` in your project root:
 
@@ -295,6 +325,7 @@ Tests:       1 passed, 1 total
 - **"Cannot find module 'c/greeting'"** - Check your `moduleNameMapper` path in `jest.config.js`. Make sure it matches where your components actually are.
 - **"SyntaxError: Unexpected token"** - Jest might not be transforming your files correctly. Verify `@lwc/jest-preset` is installed.
 - **Test fails** - Double-check that the component files are in the correct location and that the class names match.
+- **ReferenceError: global is not defined** - This error can occur if you have conflicting versions of `jest-environment-jsdom`. Use `npm list jest-environment-jsdom` to ensure your project and your installed version of `@lwc/jest-preset` are the same major version (e.g., both v28 or both v29).
 
 ---
 
