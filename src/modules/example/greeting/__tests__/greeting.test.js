@@ -18,9 +18,13 @@ describe('example-greeting', () => {
         //Add it to the test DOM
         document.body.appendChild(element);
         
-        const div = element.shadowRoot.querySelector('.greeting');
-        
-        expect(div.textContent).toBe('Hello, Its Me!');
+        const divClass = element.shadowRoot.querySelector('.greeting');
+        expect(divClass).not.toBeNull();
+        expect(divClass.textContent).toBe('Hello, Its Me!');
+
+        const divId = element.shadowRoot.querySelector('[data-id="greetingmessage"]');
+        expect(divId).not.toBeNull();
+        expect(divId.textContent).toBe('Hello, Its Me!');
     });
      it('has only one greeting component', () => {
         const element = createElement('example-greeting', {
@@ -29,14 +33,7 @@ describe('example-greeting', () => {
         document.body.appendChild(element);
 
         // Query all example-greeting elements in the DOM
-        const greetingEls = document.body.querySelectorAll('example-greeting');
-        let greetingCount = 0;
-        greetingEls.forEach(el => {
-            if (el.shadowRoot) {
-                const greetingDiv = el.shadowRoot.querySelector('.greeting');
-                if (greetingDiv) greetingCount++;
-            }
-        });
-        expect(greetingCount).toBe(1);
+        const greetingElements = document.body.querySelectorAll('example-greeting');
+        expect(greetingElements.length).toBe(1);
     });
 });
