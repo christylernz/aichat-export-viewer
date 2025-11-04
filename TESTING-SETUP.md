@@ -1543,28 +1543,6 @@ it('parent and child components communicate correctly', async () => {
 });
 ```
 
-### Step 10.3: Recommended Practice Path
-
-1. **Week 1-2:** Add tests to 2-3 existing simple components
-   - Get comfortable with the syntax
-   - Practice using different matchers
-   - Run tests in watch mode while developing
-
-2. **Week 3-4:** Use TDD for a new feature
-   - Write test first, then implementation
-   - Experience the Red-Green-Refactor cycle
-   - Notice how tests guide your design
-
-3. **Week 5-6:** Use BDD for a complex component
-   - Plan behaviors with nested describe blocks
-   - Use Given-When-Then comments
-   - See how tests become documentation
-
-4. **Ongoing:** Build the habit
-   - Write tests for every new component
-   - Add tests when fixing bugs (regression tests)
-   - Aim for high coverage on critical components
-
 ### Step 10.4: When Tests Fail
 
 When a test fails, follow this debugging process:

@@ -18,7 +18,8 @@
     "stage:prod-compat": "yarn build:prod-compat && yarn start",
     "test": "npm run test:unit",
     "test:unit": "jest",
-    "test:unit:watch": "jest --watch"
+    "test:unit:watch": "jest --watch",
+    "test:unit:coverage": "jest --coverage"
   },
   "dependencies": {
     "lwc": "latest",
