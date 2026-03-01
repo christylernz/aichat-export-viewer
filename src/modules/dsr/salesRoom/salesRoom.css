@@ -1,0 +1,12 @@
+/* salesRoom.css */
+
+/*
+  The host element (dsr-sales-room) renders as a custom element in the DOM.
+  Setting display:block makes it behave like a normal block container.
+  Without this, custom elements default to inline which can cause layout bugs.
+*/
+:host {
+    display: block;
+    min-height: 100vh;
+    background-color: #f3f2f2; /* SLDS neutral background */
+}

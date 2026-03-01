@@ -1,0 +1,120 @@
+<!--
+  linkGroup.html
+
+  Key things to notice in this template:
+
+  1. The outer div carries the ondragover / ondragleave / ondrop handlers.
+     This entire card is the drop zone.
+
+  2. We iterate over `linksWithPlaceholder` (a getter) instead of group.links
+     directly. The getter splices in a sentinel {__isPlaceholder:true} object
+     at dragOverIndex, giving us a slot to render the blue placeholder bar.
+
+  3. Each rendered link item gets data-link-index={index} so the JS can find
+     DOM elements and measure their Y midpoints during dragover.
+
+  4. The select element for group type uses a plain <select> + <option> loop
+     since we have no lightning-select in LWC OSS.
+-->
+<template>
+  <div class={groupCardClass} ondragover={handleDragOver} ondragleave={handleDragLeave} ondrop={handleDrop}>
+
+    <!-- ── Group Header ─────────────────────────────────────────────── -->
+    <div class="slds-card__header">
+      <div class="slds-media slds-media_center slds-has-flexi-truncate">
+
+        <!-- Drag Handle for the group itself (visual only for now) -->
+        <div class="slds-media__figure">
+          <span class="group-drag-handle" title="Drag to reorder groups">⠿</span>
+        </div>
+
+        <!-- Editable Label -->
+        <div class="slds-media__body">
+          <template lwc:if={isEditingLabel}>
+            <input type="text" class="slds-input group-label-input js-label-input" value={editLabelValue}
+              oninput={handleLabelInput} onblur={handleLabelBlur} onkeydown={handleLabelKeydown} />
+          </template>
+          <template lwc:else>
+            <h2 class="slds-card__header-title group-label" onclick={handleLabelClick} title="Click to rename">
+              {group.label}
+              <span class="edit-hint">✎</span>
+            </h2>
+          </template>
+        </div>
+
+        <!-- Type selector + actions -->
+        <div class="slds-no-flex group-header-actions">
+          <select class="slds-select group-type-select" onchange={handleTypeChange}>
+            <!--
+              LWC templates don't support `selected={condition}` on options.
+              Use JS to highlight the current value via a getter if needed,
+              or accept that the native select will show the first option.
+              For learning purposes we keep this simple.
+            -->
+            <template for:each={group.groupTypes} for:item="gt">
+              <option key={gt.value} value={gt.value}>{gt.label}</option>
+            </template>
+          </select>
+
+          <button class="slds-button slds-button_neutral slds-m-left_x-small" onclick={handleAddLink}
+            title="Add a fake link for testing">
+            + Link
+          </button>
+
+          <button class="slds-button slds-button_icon slds-button_icon-border slds-m-left_x-small remove-group-btn"
+            onclick={handleRemoveGroup} title="Remove this group">
+            ✕
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Links List ────────────────────────────────────────────────── -->
+    <div class="slds-card__body slds-card__body_inner link-list">
+
+      <!-- Non-empty state: iterate linksWithPlaceholder -->
+      <template lwc:if={isEmpty}>
+        <template for:each={linksWithPlaceholder} for:item="link" for:index="index">
+
+          <!-- Placeholder slot (shown while dragging over this group) -->
+          <template lwc:if={link.__isPlaceholder}>
+            <div key={link.id} class="drop-placeholder"></div>
+          </template>
+
+          <!-- Real link item -->
+          <template lwc:else>
+            <!--
+              data-link-index is read by handleDragOver to calculate
+              where in the list the cursor is. The actual index into
+              group.links (not linksWithPlaceholder) is what we want,
+              so we pass the iteration index from the parent getter.
+            -->
+            <div key={link.id} data-link-index={link.order}>
+              <dsr-link-item link={link} display-type={group.type}></dsr-link-item>
+            </div>
+          </template>
+
+        </template>
+      </template>
+
+      <!-- Empty state: shown when the group has no links yet -->
+      <template lwc:else>
+        <div class="empty-drop-zone">
+          <p class="slds-text-body_small slds-text-color_weak">
+            Drop a link here, or click + Link to add one.
+          </p>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- ── Footer: link count ────────────────────────────────────────── -->
+    <div class="slds-card__footer">
+      <span class="slds-text-body_small slds-text-color_weak">
+        {group.links.length} link(s) · type: {group.type}
+      </span>
+    </div>
+
+  </div>
+</template>

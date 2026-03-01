@@ -2,25 +2,22 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main Layout</title>
-    <link rel="stylesheet" href="$sldsAssetsDir/styles/salesforce-lightning-design-system.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Sales Room</title>
+
+  <!--
+      SLDS is loaded here as a plain stylesheet.
+      In LWC OSS there is no platform to auto-inject it —
+      this file is your one place to bring it in.
+      The /slds path is aliased in lwr.config.json.
+    -->
+  <link rel="stylesheet" href="$sldsAssetsDir/styles/salesforce-lightning-design-system.min.css" />
 </head>
 
 <body>
-    <div class="slds-card">
-        <div class="slds-card__header">
-            <h2 class="slds-text-heading_medium">Main Layout</h2>
-        </div>
-        <div class="slds-card__body">
-            <p>Welcome to the main layout!</p>
-        </div>
-    </div>
-
-    {{{body}}}
-    {{{lwr_resources}}}
-    Bottom of Layout Page
+  <!-- LWR mounts the root component here based on lwr.config.json routes -->
+  <dsr-sales-room></dsr-sales-room>
 </body>
 
 </html>

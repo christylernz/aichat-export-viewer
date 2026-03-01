@@ -1,0 +1,117 @@
+/* linkGroup.css */
+
+:host {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Group card ─────────────────────────────────────────────────────────── */
+
+.group-card {
+    transition: background-color 0.15s ease, outline 0.15s ease;
+}
+
+/*
+  This class is toggled via the groupCardClass getter in linkGroup.js.
+  It gives a clear visual signal that this group is a valid drop target.
+*/
+.group-card_drag-over {
+    background-color: #f0f7ff;
+    outline: 2px dashed #0176d3;
+    outline-offset: -2px;
+}
+
+/* ── Group header elements ──────────────────────────────────────────────── */
+
+.group-label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.group-label:hover .edit-hint {
+    opacity: 1;
+}
+
+.edit-hint {
+    opacity: 0;
+    font-size: 0.8em;
+    color: #706e6b;
+    transition: opacity 0.15s;
+}
+
+.group-label-input {
+    font-size: 1rem;
+    font-weight: 700;
+    max-width: 260px;
+}
+
+.group-drag-handle {
+    font-size: 1.2rem;
+    color: #b0adab;
+    cursor: grab;
+    user-select: none;
+    padding: 0 0.25rem;
+}
+
+.group-header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.group-type-select {
+    /*
+      Override SLDS default width so the select doesn't stretch full-width.
+      In LWC OSS we style HTML elements directly — no lightning-select wrapper.
+    */
+    width: auto;
+    min-width: 130px;
+}
+
+.remove-group-btn {
+    color: #c23934;
+    border-color: #c23934;
+}
+
+.remove-group-btn:hover {
+    background-color: #c23934;
+    color: #fff;
+}
+
+/* ── Link list + drop zone ──────────────────────────────────────────────── */
+
+.link-list {
+    /* Ensures the drop zone is always tall enough to accept a drop
+       even when the group is empty. */
+    min-height: 64px;
+}
+
+/*
+  The drop placeholder is a visual ghost that appears at dragOverIndex.
+  It signals exactly where the dragged item will land.
+*/
+.drop-placeholder {
+    height: 48px;
+    border: 2px dashed #0176d3;
+    border-radius: 4px;
+    background-color: #e8f4ff;
+    margin-bottom: 0.5rem;
+    pointer-events: none; /* don't interfere with drag events */
+}
+
+.empty-drop-zone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    border: 2px dashed #dddbda;
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+    transition: border-color 0.15s;
+}
+
+.group-card_drag-over .empty-drop-zone {
+    border-color: #0176d3;
+}

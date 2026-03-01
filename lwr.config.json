@@ -1,58 +1,23 @@
 {
-    "lwc": {
-        "modules": [
-            {
-                "dir": "$rootDir/src/modules"
-            }
-        ]
-    },
-    "bundleConfig": {
-        "exclude": [
-            "lwc",
-            "@lwc/synthetic-shadow"
-        ]
-    },
-    "layoutsDir": "$rootDir/src/layouts",
-    "routes": [
-        {
-            "id": "example",
-            "path": "/",
-            "rootComponent": "example/app",
-            "layoutTemplate": "$layoutsDir/index.html",
-            "bootstrap": {
-                "syntheticShadow": true
-            }
-        },
-        {
-            "id": "greeting",
-            "path": "/greeting",
-            "rootComponent": "example/greeting",
-            "layoutTemplate": "$layoutsDir/index.html",
-            "bootstrap": {
-                "syntheticShadow": true
-            }
-        }
-    ],
-    "assets": [
-        {
-            "alias": "assetsDir",
-            "dir": "$rootDir/src/assets",
-            "urlPath": "/public/assets"
-        },
-        {
-            "alias": "sldsAssetsDir",
-            "dir": "$rootDir/src/assets/slds",
-            "urlPath": "/slds"
-        },
-        {
-            "alias": "sldsFontsDir",
-            "dir": "$rootDir/src/assets/slds/fonts",
-            "urlPath": "/fonts"
-        },
-        {
-            "alias": "favicon",
-            "file": "$rootDir/src/assets/favicon.ico",
-            "urlPath": "/favicon.ico"
-        }
+  "lwc": {
+    "modules": [
+      {
+        "dir": "$rootDir/src/modules"
+      }
     ]
+  },
+  "assets": [
+    {
+      "alias": "slds",
+      "dir": "$rootDir/node_modules/@salesforce-ux/design-system/assets",
+      "urlPath": "/slds"
+    }
+  ],
+  "routes": [
+    {
+      "id": "main",
+      "path": "/",
+      "rootComponent": "dsr/salesRoom"
+    }
+  ]
 }

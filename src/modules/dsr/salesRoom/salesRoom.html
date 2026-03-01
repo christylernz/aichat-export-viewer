@@ -1,0 +1,73 @@
+<!--
+  salesRoom.html
+
+  This template is intentionally thin. Its job is:
+    1. Render the toolbar (Add Group button)
+    2. Loop over sortedGroupsWithLinks and hand each group to dsr-link-group
+    3. Wire up event listeners for events that bubble up from children
+
+  Event flow reminder
+  ───────────────────
+  Child events bubble UP:
+    dsr-link-item  → fires 'linkremoved', 'dragstart' (native)
+    dsr-link-group → fires 'linkmoved', 'linkadded', 'groupchanged', 'groupremoved'
+    dsr-sales-room → handles all of the above here
+
+  Note: because we use bubbles:true + composed:true on CustomEvents,
+  we can listen for them on THIS element even though they originate in
+  a deeply nested shadow root.
+-->
+<template>
+  <div class="slds-p-around_medium">
+
+    <!-- ── Page Header ───────────────────────────────────────────────── -->
+    <div class="slds-page-header slds-m-bottom_large">
+      <div class="slds-page-header__row">
+        <div class="slds-page-header__col-title">
+          <h1 class="slds-page-header__title">Digital Sales Room</h1>
+          <p class="slds-text-body_small slds-text-color_weak">
+            Drag links to reorder or move between groups.
+          </p>
+        </div>
+        <div class="slds-page-header__col-actions">
+          <button
+            class="slds-button slds-button_brand"
+            onclick={handleAddGroup}
+          >
+            + Add Group
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Groups ────────────────────────────────────────────────────── -->
+    <!--
+      for:each requires a key attribute on the direct child element.
+      We pass the full group object (with its .links array pre-attached)
+      so linkGroup has everything it needs without further prop drilling.
+    -->
+    <template for:each={sortedGroupsWithLinks} for:item="group">
+      <dsr-link-group
+        key={group.id}
+        group={group}
+        onlinkadded={handleAddLink}
+        onlinkremoved={handleLinkRemoved}
+        onlinkmoved={handleLinkMoved}
+        ongroupchanged={handleGroupChanged}
+        ongroupremoved={handleGroupRemoved}
+      ></dsr-link-group>
+    </template>
+
+    <!-- Empty state -->
+    <template lwc:if={noGroups}>
+      <div class="slds-illustration slds-illustration_small slds-m-top_large">
+        <div class="slds-illustration__figure"></div>
+        <div class="slds-illustration__message">
+          <h3 class="slds-text-heading_medium">No groups yet</h3>
+          <p class="slds-text-body_regular">Click "Add Group" to get started.</p>
+        </div>
+      </div>
+    </template>
+
+  </div>
+</template>
